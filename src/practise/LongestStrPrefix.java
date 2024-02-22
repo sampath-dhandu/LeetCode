@@ -16,6 +16,7 @@ public class LongestStrPrefix {
         String prefix = strList[0];
         for (int i = 1; i < strList.length; i++) {
             while (strList[i].indexOf(prefix) != 0) {
+                System.out.println(prefix);
                 prefix = prefix.substring(0, prefix.length() - 1);
             }
         }

@@ -11,7 +11,6 @@ public class BinarySearch {
     private static int search(int arr[], int start , int end, int searchElement){
         if (start <= end) {
             int mid = (start + end) / 2;
-            System.out.println(("mid : " + mid + "start : " + start + " end : " + end));
             if (arr[mid] == searchElement)
                 return mid;
             if (searchElement > arr[mid]) {

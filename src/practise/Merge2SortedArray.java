@@ -51,10 +51,21 @@ public class Merge2SortedArray {
             mergeMap.put(arr2[j], true);
         }
 
-        for (Map.Entry<Integer,Boolean> me : mergeMap.entrySet())
-        {
-            System.out.print(me.getKey() + " ");
+        int arr3[] =new int[arr1.length+arr2.length];
+
+        Object out[]=mergeMap.keySet().toArray();
+
+        for(int i = 0; i < out.length; i ++){
+            System.out.print(out[i] + " ");
         }
+
+        //System.out.println(mergeMap.entrySet().toArray());
+
+      //  for (Map.Entry<Integer,Boolean> me : mergeMap.entrySet())
+      //  {
+            //System.out.print(me.getKey() + " ");
+
+       // }
     }
 
     private static void display(int[] arr3) {

@@ -3,6 +3,7 @@ package practise;
 public class PrintEvenOddNumber {
     static int n;
     int counter = 1;
+
     public static void main(String[] args) {
         n = 10;
         PrintEvenOddNumber mt = new PrintEvenOddNumber();
@@ -29,7 +30,7 @@ public class PrintEvenOddNumber {
             // Print number till the N
             while (counter < n) {
                 // If count is even then print
-                while (counter % 2 == 0) {
+                while (counter % 2 == 1) {
 
                     // Exception handle
                     try {
@@ -58,7 +59,7 @@ public class PrintEvenOddNumber {
             // Print number till the N
             while (counter < n) {
                 // If count is odd then print
-                while (counter % 2 == 1) {
+                while (counter % 2 == 0) {
                     // Exception handle
                     try {
                         wait();

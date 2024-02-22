@@ -1,0 +1,73 @@
+1).How into investigate java heap OutOfMemoryError
+
+Tools to investigate and fix OutOfMemoryError in Java:
+1. Visualgc
+Visualgc stands for Visual Garbage Collection Monitoring Tool and you can attach it to your instrumented hotspot JVM. The main strength of visualgc is that it displays all key data graphically including class loader, garbage collection, and JVM compiler performance data.
+The target JVM is identified by its virtual machine identifier also called as vmid. You can read more about visualgc and vmid options here.
+
+2. jmap
+The jmap tool is a command line utility comes with JDK6 and allows you to take a memory dump of the heap in a file. It’s easy to use as shown below:
+jmap -dump:format=b,file=heapdump 6054
+Here file specifies the name of the memory dump file which is "heap dump" and 6054 is PID of your Java progress. You can find the PDI by using "ps -ef” or windows task manager or by using the tool called "jps"(Java Virtual Machine Process Status Tool).
+
+
+3. jhat
+The jhat tool was earlier known as hat (heap analyzer tool) but it is now part of JDK6. You can use jhat to analyze heap dump file created by using "jmap". The jhat is also a command line utility and you can run it from the cmd window as shown below:
+jhat -J-Xmx256m heapdump
+Here it will analyze the memory dump contained in file "heapdump". When you start jhat it will read this heap dump file and then start listening on HTTP port, just point your browser into port where jhat is listening by default 7000, and then you can start analyzing objects present in heap dump
+
+Read more: https://javarevisited.blogspot.com/2011/09/javalangoutofmemoryerror-permgen-space.html#ixzz8SKpXjHGZ
+
+
+2).Multithreading vs concurrency in java
+
+Multithreading and concurrency are important concepts in Java that allow for efficient use of system resources and better performance in multi-tasking applications.
+Multithreading refers to the ability of a program to execute multiple threads simultaneously within a single process. Each thread runs independently of the other threads and can perform its own set of tasks. Multithreading can help improve the responsiveness of a program by allowing it to continue running while performing other tasks in the background.
+Concurrency, on the other hand, refers to the ability of multiple threads to access shared resources simultaneously. In a concurrent program, multiple threads can access the same piece of data or code at the same time, which can result in conflicts and synchronization issues if not handled properly.
+In Java, multithreading and concurrency are supported through the use of threads and synchronization mechanisms such as locks, semaphores, and monitors. The java.util.concurrent package provides a variety of classes and interfaces that can be used to implement concurrency in Java programs.
+It is important to carefully design and test multithreaded and concurrent programs to ensure that they are efficient, reliable, and free of synchronization issues. Proper synchronization and coordination of threads can help prevent data corruption and improve the overall performance of the program.
+
+To create a thread in Java, you can either extend the Thread class or implement the Runnable interface. The former is achieved by creating a subclass of Thread and overriding the run() method, while the latter involves implementing the run() method in a separate class and passing it as a parameter to a Thread object.
+Synchronization in Java is achieved through the use of locks, which can be acquired and released by threads. The synchronized keyword can be used to mark critical sections of code that should only be accessed by one thread at a time. This ensures that shared resources are accessed in a mutually exclusive manner, preventing data corruption and race conditions.
+Java also provides other synchronization mechanisms such as semaphores and monitors, which can be used to coordinate access to shared resources in more complex scenarios.
+One important concept in Java concurrency is the use of atomic operations. These are operations that are executed atomically, meaning that they cannot be interrupted by other threads. This can help prevent synchronization issues and ensure the consistency of shared data.
+Another important consideration in Java concurrency is deadlock prevention. Deadlocks occur when two or more threads are waiting for each other to release a lock, resulting in a deadlock situation where none of the threads can proceed. To prevent deadlocks, it is important to ensure that locks are acquired and released in a consistent order, and to avoid holding onto locks for long periods of time.
+
+
+3.What is Immutable in Java.
+An object is considered immutable if its state cannot change after it is constructed.
+Maximum reliance on immutable objects is widely accepted as a sound strategy for creating simple, reliable code.
+Immutable objects are particularly useful in concurrent applications. Since they cannot change state, they cannot be corrupted by thread interference or observed in an inconsistent state.
+Programmers are often reluctant to employ immutable objects, because they worry about the cost of creating a new object as opposed to updating an object in place.
+The impact of object creation is often overestimated, and can be offset by some of the efficiencies associated with immutable objects.
+These include decreased overhead due to garbage collection, and the elimination of code needed to protect mutable objects from corruption.
+The following subsections take a class whose instances are mutable and derives a class with immutable instances from it.
+In so doing, they give general rules for this kind of conversion and demonstrate some of the advantages of immutable objects.
+
+4.Spring Dependency Injection
+Dependency injection (DI) is a process whereby objects define their dependencies
+(that is, the other objects with which they work) only through constructor arguments, arguments to a factory method, or properties that are set on the object instance after it is constructed or returned from a factory method. The container then injects those dependencies when it creates the bean. This process is fundamentally the inverse (hence the name, Inversion of Control) of the bean itself controlling the instantiation or location of its dependencies on its own by using direct construction of classes or the Service Locator pattern.
+Code is cleaner with the DI principle, and decoupling is more effective when objects are provided with their dependencies. The object does not look up its dependencies and does not know the location or class of the dependencies. As a result, your classes become easier to test, particularly when the dependencies are on interfaces or abstract base classes, which allow for stub or mock implementations to be used in unit tests.
+.Constructor-based Dependency Injection
+.Setter-based Dependency Injection
+
+5.immutability in multithreading
+Immutability in multithreading refers to the practice of ensuring that objects, once created, cannot be modified. Immutable objects have a fixed state and cannot be changed after creation. This property is particularly beneficial in multithreaded environments where multiple threads may access and potentially modify shared data concurrently. Here's why immutability is important in multithreading:
+Thread Safety: Immutable objects are inherently thread-safe because they cannot be modified. Since their state cannot change after creation, there is no risk of data corruption or race conditions when accessed concurrently by multiple threads.
+Synchronization Elimination: Immutable objects eliminate the need for synchronization mechanisms such as locks or mutexes since they cannot be modified. This can lead to simpler and more efficient multithreaded code, as there's no need to manage concurrent access to immutable objects.
+Concurrent Access: Immutable objects can be safely shared among multiple threads without the risk of inconsistency or unexpected behavior. Each thread sees a consistent view of the object's state, regardless of other threads' actions.
+Reduced Complexity: Immutable objects simplify reasoning about concurrency and make it easier to write correct and bug-free multithreaded code. Since their state cannot change, there are fewer opportunities for bugs related to shared mutable state.
+Performance Optimization: Immutable objects can be cached and shared across threads without the need for synchronization. This can lead to performance improvements in scenarios where objects are frequently created and accessed by multiple threads.
+To achieve immutability in Java, you can follow these best practices:
+Declare fields as final to prevent them from being reassigned.
+Avoid exposing mutable objects through getter methods. Instead, return defensive copies or immutable views of mutable objects.
+Ensure that the class itself is final or that its methods cannot be overridden to maintain the immutability contract.
+Initialize all fields in the constructor and avoid providing setter methods.
+Make defensive copies of mutable objects passed into the constructor to prevent external modification.
+Ensure that mutable objects contained within the immutable object are also effectively immutable or safely encapsulated.
+By following these practices, you can create immutable objects that are inherently thread-safe and can be safely shared among multiple threads in a multithreaded environment.
+
+
+
+
+

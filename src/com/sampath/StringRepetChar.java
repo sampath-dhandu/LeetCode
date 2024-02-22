@@ -19,4 +19,8 @@ public class StringRepetChar {
         return Character.MIN_VALUE;
     }
 
+    public static void main(String[] args) {
+        StringRepetChar stringRepetChar= new StringRepetChar();
+        System.out.println(stringRepetChar.nonRepetedChar("hello"));
+    }
 }
